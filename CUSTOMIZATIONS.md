@@ -66,7 +66,7 @@
   `v0.8.96`、`v0.8.97`，否则 CI 校验报 unknown revision）；同步新上游版本后把新的
   上游 tag 也推到 fork。
 
-### 2026-09-13 · 加载动画恢复 v7.0.33 的旋转星形（StarBorder）
+### 2026-09-13 · 加载动画恢复 v7.0.33 样式（卡片细圆圈 + 通用旋转星形）
 
 - 基线：graphics @ v0.8.97.2
 - 类型：视觉
@@ -76,8 +76,13 @@
   齿圆角 0.5 / 谷圆角 0.1 / squash 0.5）。上游 v0.8.97 改为 M3E 离散形状序列
   （MaterialShapes 七形状 Morph），观感完全不同；曾按七形状参数复刻并随
   v0.8.97.2 发布，真机确认仍不是目标样式，本条目取代之。
-- 方案：绘制器整体回退为 v7.0.33 的 StarBorder 实现，仅保留新版外壳语义
-  （默认 48、被父约束钳制取短边、Loose 约束下收缩、RepaintBoundary）。
+- 方案：分两层恢复，与 v7.0.33 逐点对齐：
+  - 代理卡片测延迟 pending：`CircularProgressIndicator(strokeWidth: 2)`（细线
+    圆圈 spinner，"一圈一圈转"的那个）——`lib/views/proxies/card.dart`；
+  - 其余加载点（资源页/面板/授权页等）：`CommonCircleLoading` 恢复为 v7.0.33
+    的 StarBorder 旋转星形（3s/圈、角数 3↔9 连续往复、innerRadius 0.8、
+    齿圆角 0.5、谷圆角 0.1、squash 0.5），外壳沿用新版尺寸语义（默认 48、
+    被父约束钳制取短边、Loose 约束收缩、RepaintBoundary）。
   M3E 的离散顶点 API（RoundedPolygon.star 角数只能整数）无法实现连续点数
   变形，经评估后明确不采用。
 - 回归保护：`test/widgets/loading_test.dart`（尺寸解析 + 旋转/点数持续动画）。

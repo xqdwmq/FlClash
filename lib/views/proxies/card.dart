@@ -49,7 +49,7 @@ class ProxyCard extends ConsumerWidget {
                     height: measure.labelSmallHeight,
                     width: measure.labelSmallHeight,
                     child: pending
-                        ? const CommonCircleLoading()
+                        ? const CircularProgressIndicator(strokeWidth: 2)
                         : IconButton(
                             tooltip: context.appLocalizations.delayTest,
                             icon: const Icon(Icons.bolt),
