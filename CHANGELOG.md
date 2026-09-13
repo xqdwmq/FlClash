@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.8.97.4 (2026-09-13)
+
+**Bug Fixes**
+
+- **proxies** Restore the thin circular delay-test spinner on proxy cards (3158c5c)
+
 ## v0.8.97.3 (2026-09-13)
 
 **Bug Fixes**
